@@ -18,6 +18,9 @@ struct b_node *new_b_node (void *data);
 /*acidiona o nó "nd", à arvore apontada por bthree*/
 void add_b_node (struct b_node **btree, struct b_node *nd, int (*compare) (struct b_node *, struct b_node *));
 
+/*Retorna 3 para ambos, 2 para filho direito, 1 para esquerdo, 0 para nenhum e -1 p/ erro*/
+int sons_of (struct b_node *father);
+
 /*
  * gera as rotas para as folhas
  * retorna uma lista de rotas (listas)
