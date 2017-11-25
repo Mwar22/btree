@@ -1,5 +1,5 @@
 #include "btree.h"
-#include "list_library/lista.h"
+#include "list_library/list.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -40,13 +40,11 @@ void add_b_node (struct b_node **btree, struct b_node *nd, int (*compare) (struc
       {
           if (i->right_son  == NULL)
           {
-            printf ("stab right\n");
             i->right_son = nd;
             break;
           }
           else
           {
-            printf ("walked right\n");
             i = i->right_son;
           }
       }
@@ -54,13 +52,11 @@ void add_b_node (struct b_node **btree, struct b_node *nd, int (*compare) (struc
         {
           if (i->left_son  == NULL)
           {
-            printf ("stab left\n");
             i->left_son = nd;
             break;
           }
           else
           {
-            printf ("walked left\n");
             i = i->left_son;
           }
         }
@@ -88,39 +84,6 @@ int sons_of (struct b_node *father)
   return sons;
 }
 
-void print(node *rotas)
-{
-
-  node *cursor = NULL;
-  do
-    {
-      cursor = (node *) rotas->data;
-      do
-        {
-         
-          printf (" %d ", *((int *)(((struct b_node *) cursor->data))->data));
-          cursor = cursor->next;
-        }
-      while (cursor != NULL);
-      printf ("\n");
-      rotas = rotas->next;
-   
-    }
-  while (rotas != NULL);
-}
-
-static void print_endlist (node *end_list)
-{
-  int i = 0;
-  node *tmp = end_list;
-  printf ("end_list_size :%d\n", getSize (end_list));
-  do
-    {
-      printf ("position: %d | end_value: %d\n", i++,*((int *)((struct b_node *) ((node *) tmp->data)->data)->data));
-      tmp =  tmp->next;
-    }
-   while (tmp != NULL);
-}
 
 static void add_to_path (node *path_end, struct b_node *no)
 {
@@ -158,10 +121,7 @@ struct node *trace_leaf_routes (struct b_node *btree)
     {
       node *end = (node *) (getNode (path_list_index, end_list)); /* armazena ponteiro para o nó do fim do caminho */
       struct b_node *end_value = (struct b_node *) ((node *) end->data)->data; /*o valor armazenado pelo fim do caminho*/
-      printf ("-------------------\n");
-      printf ("index %d|node val: %d\n",path_list_index, *((int *) end_value->data));
-                
-      
+              
       switch (sons_of (end_value))
         {
           case 0:  /* nenhum filho, folha */
@@ -181,12 +141,9 @@ struct node *trace_leaf_routes (struct b_node *btree)
           
           case 3: /*2 filhos, direito e esquerdo*/
             {
-                printf ("caso 3\n");
                 node *tmp = getNode (path_list_index, path_list);
                 node *path = (node *) (tmp->data);
                 node *clone = copy (path);
-                
-              
                 
                 /*pega o fim dos clones*/
                 node *clone_end =  clone;
@@ -204,14 +161,6 @@ struct node *trace_leaf_routes (struct b_node *btree)
                 /*adiciona o clone no começo e adiciona  o end do mesmo */
                 addAtHead (new (clone), &path_list);
                 addAtHead (clone_end_pointer, &end_list);
-                
-                
-                
-                
-                printf ("end_list_top val: %d\n", *((int *) ((struct b_node *) ((node *) end_list->data)->data)->data));
-                printf ("after adding\n");
-                print (path_list);
-                
             
                 can_branch = 1;
                 path_list_size++;
@@ -220,14 +169,18 @@ struct node *trace_leaf_routes (struct b_node *btree)
             break;
            
         }
-         print_endlist (end_list);
-         printf ("\n*****************\nPATHS\n");
-         print (path_list);
           
     }
   while (can_branch == 1 || path_list_index < path_list_size);
   
-  delete (&end_list);
+  /*apaga end_list (lixo)*/
+  node *next;
+  while (end_list != NULL)
+    {
+      next = end_list->next;
+      free (end_list);
+      end_list = next;
+    }
   return path_list;
   
 }

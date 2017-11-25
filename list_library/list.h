@@ -1,5 +1,5 @@
-#ifndef LISTA_H
-#define LISTA_H
+#ifndef LIST_H
+#define LIST_H
 
 enum
 {
@@ -48,7 +48,7 @@ int delAt (int i, node **pt_to_head);
 /*retorna o numero de elementos da lista*/
 int getSize (node *head);   
 
-/*retorna o nó, começando em no nó 0 até o nó especificado (p/ i < 0, conta-se de traz para frente), retorna null se head = null*/
+/*retorna o nó, começando em no nó 0 até o nó especificado (p/ i < 0, conta-se de traz para frente)*/
 node *getNode (int i, node *head); 
 
 /*ordena a lista, recebe dois parametros, um é o ponteiro para o ponteiro de head,
