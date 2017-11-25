@@ -53,5 +53,14 @@ int main (int argc, char *argv[])
   
   node *rotas = trace_leaf_routes (tree);
   print (rotas);
+  
+  destroy_tree (&tree);
+  printf ("burro\n");
+  
+  if (tree != NULL)
+    printf ("nao apagou\n");
+  else
+    printf ("apagou\n");
+  
   return (0);
 }

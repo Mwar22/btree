@@ -27,5 +27,8 @@ int sons_of (struct b_node *father);
  */
 struct node *trace_leaf_routes (struct b_node *btree);
 
+/*apaga a arvore*/
+void destroy_tree (struct b_node **tree);
+
 /*get level*/
 #endif

@@ -184,3 +184,18 @@ struct node *trace_leaf_routes (struct b_node *btree)
   return path_list;
   
 }
+
+/*apaga a arvore*/
+void destroy_tree (struct b_node **btree)
+{
+  struct b_node *tree = *btree;
+  if (tree != NULL)
+    {
+      destroy_tree (&(tree->left_son));
+      destroy_tree (&(tree->right_son));
+      free (tree);
+    }
+    
+  *btree = NULL;
+  
+}
