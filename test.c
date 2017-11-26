@@ -54,6 +54,9 @@ int main (int argc, char *argv[])
   node *rotas = trace_leaf_routes (tree);
   print (rotas);
   
+  int sz = get_level (tree);
+  printf ("tree level: %d\n", sz);
+  
   destroy_tree (&tree);
   printf ("burro\n");
   

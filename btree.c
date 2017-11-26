@@ -199,3 +199,28 @@ void destroy_tree (struct b_node **btree)
   *btree = NULL;
   
 }
+
+/*função que balanceia a arvore, segundo o criterio apresentado "menor"- lado esquerdo, "maior"- lado direito*/
+void balance_tree (struct b_node **tree, int (*compare) (struct b_node *, struct b_node *))
+{
+  
+}
+
+/*retorna a profundidade do nível da arvore. retorna 0 se a arvore esta vazia*/
+int get_level (struct b_node *tree)
+{
+  int left_tree_level = 0;
+  int right_tree_level = 0;
+  
+  if (tree != NULL)
+    {
+      left_tree_level = get_level (tree->left_son) +1;
+      right_tree_level = get_level (tree->right_son) +1;
+    }
+  
+  /*retorna o maior caminho*/
+  if (left_tree_level > right_tree_level)
+    return left_tree_level;
+  else
+    return right_tree_level;
+}
