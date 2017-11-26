@@ -27,5 +27,15 @@ int sons_of (struct b_node *father);
  */
 struct node *trace_leaf_routes (struct b_node *btree);
 
+/*apaga a arvore*/
+void destroy_tree (struct b_node **tree);
+
+/*função que balanceia a arvore, segundo o criterio apresentado "menor"- lado esquerdo, "maior"- lado direito*/
+void balance_tree (struct b_node **tree);
+
+
+/*retorna a profundidade do nível da arvore. retorna 0 se a arvore esta vazia*/
+int get_level (struct b_node *tree);
+
 /*get level*/
 #endif

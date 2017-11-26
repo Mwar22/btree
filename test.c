@@ -40,18 +40,33 @@ int compare (struct b_node *a, struct b_node *b)
 
 int main (int argc, char *argv[])
 {
-  int m = 15;
-  int n[] = {4,16,20,6,18,5,7,17,21,19};
+  int m = 5;
+  int n[] = {3,2,4,6,8,7,10,9,20,18,15,19};
   struct b_node *tree = NULL;
 
   
  
   add_b_node (&tree, new_b_node (&m),compare);
   int i = 0;
-  for (i = 0; i < 10; i++)
+  for (i = 0; i < 12; i++)
     add_b_node (&tree, new_b_node (&n[i]), compare);
   
   node *rotas = trace_leaf_routes (tree);
   print (rotas);
+  
+  balance_tree (&tree);
+  
+  printf ("Depois de balanceadas...\n");
+  node *rotas_balanceadas = trace_leaf_routes (tree);
+  print (rotas_balanceadas);
+  
+  destroy_tree (&tree);
+  printf ("burro\n");
+  
+  if (tree != NULL)
+    printf ("nao apagou\n");
+  else
+    printf ("apagou\n");
+  
   return (0);
 }

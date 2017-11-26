@@ -184,3 +184,88 @@ struct node *trace_leaf_routes (struct b_node *btree)
   return path_list;
   
 }
+
+/*apaga a arvore*/
+void destroy_tree (struct b_node **btree)
+{
+  struct b_node *tree = *btree;
+  if (tree != NULL)
+    {
+      destroy_tree (&(tree->left_son));
+      destroy_tree (&(tree->right_son));
+      free (tree);
+    }
+    
+  *btree = NULL;
+  
+}
+
+/*função que balanceia a arvore, segundo o criterio apresentado "menor"- lado esquerdo, "maior"- lado direito*/
+void balance_tree (struct b_node **tree)
+{
+  if (*tree != NULL)
+    {
+      struct b_node *rs = (*tree)->right_son;
+      struct b_node *ls = (*tree)->left_son;
+      
+      /*pega o "level" das subarvores filhas*/
+      int L = get_level (ls);
+      int R = get_level (rs);
+      
+      /* se a arvore filha direita tiver um desnivel maior que 1 com a direita:
+       * o intuito é fazer o filho direito o novo head (rotaciona p/ a esquerda)
+       */
+      if (R- L > 1)
+        {
+          
+          /*salva o neto esquerdo do filho direito de head */
+          struct b_node *rs_left = rs->left_son;
+          
+          /*faz de head a um filho do filho direito*/
+          rs->left_son = *tree;
+          
+          (*tree)->right_son =  rs_left;
+          
+          /*altera o novo head p rs*/
+          *tree = rs;
+          
+          /*tenta balancear denovo (pode não estar balanceado)*/
+          balance_tree (tree);
+        }
+        else if (L - R > 1)
+          {
+            /*salva o neto direito do filho esquerdo de head */
+            struct b_node *ls_right = ls->right_son;
+            
+            /*faz de head a um filho do filho esquerdo*/
+            ls->right_son = *tree;
+            
+            (*tree)->left_son =  ls_right;
+            
+            /*altera o novo head p ls*/
+            *tree = ls;
+            
+            /*tenta balancear denovo (pode não estar balanceado)*/
+            balance_tree (tree);
+          }
+    }
+}
+
+/*retorna a profundidade do nível da arvore. retorna 0 se a arvore esta vazia*/
+int get_level (struct b_node *tree)
+{
+  int left_tree_level = 0;
+  int right_tree_level = 0;
+  
+  if (tree != NULL)
+    {
+      left_tree_level = get_level (tree->left_son) +1;
+      right_tree_level = get_level (tree->right_son) +1;
+    }
+  
+  /*retorna o maior caminho*/
+  if (left_tree_level > right_tree_level)
+    return left_tree_level;
+  else
+    return right_tree_level;
+}
