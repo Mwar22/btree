@@ -269,3 +269,23 @@ int get_level (struct b_node *tree)
   else
     return right_tree_level;
 }
+
+void pre_order_lst (struct b_node *tree, struct node **list)
+{
+    if (tree != NULL)
+      {
+        pre_order_lst (tree->left_son, list);       /*adiciona a arvore filha esquerda */
+        addAtTail (new (tree->data), list);   /*adiciona o no */
+        pre_order_lst (tree->right_son, list);      /*adiciona a arvore filha direita*/
+      }
+}
+
+void post_order_lst (struct b_node *tree, struct node **list)
+{
+    if (tree != NULL)
+      {
+        post_order_lst (tree->right_son, list);       /*adiciona a arvore filha direita */
+        addAtTail (new (tree->data), list);   /*adiciona o no */
+        post_order_lst (tree->left_son, list);      /*adiciona a arvore filha esquerda*/
+      }
+}

@@ -26,6 +26,13 @@ void print(node *rotas)
 }
 
 
+void prt (node *head)
+{
+  printf ("n: %d\n",*((int *) head->data));
+  if (head->next != NULL)
+    prt (head->next);
+}
+
 
 int compare (struct b_node *a, struct b_node *b)
 {
@@ -59,6 +66,12 @@ int main (int argc, char *argv[])
   printf ("Depois de balanceadas...\n");
   node *rotas_balanceadas = trace_leaf_routes (tree);
   print (rotas_balanceadas);
+  
+  node *postorder =  NULL;
+  post_order_lst (tree, &postorder);
+  
+  printf ("postorder----\n");
+  prt (postorder);
   
   destroy_tree (&tree);
   printf ("burro\n");

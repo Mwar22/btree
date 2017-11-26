@@ -27,6 +27,10 @@ int sons_of (struct b_node *father);
  */
 struct node *trace_leaf_routes (struct b_node *btree);
 
+/*retorna uma lista com os dados da arvore em preorder e posorder*/
+void post_order_lst (struct b_node *tree, struct node **list);
+void pre_order_lst  (struct b_node *tree, struct node **list);
+
 /*apaga a arvore*/
 void destroy_tree (struct b_node **tree);
 
@@ -36,6 +40,7 @@ void balance_tree (struct b_node **tree);
 
 /*retorna a profundidade do nível da arvore. retorna 0 se a arvore esta vazia*/
 int get_level (struct b_node *tree);
+
 
 /*get level*/
 #endif
