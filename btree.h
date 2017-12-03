@@ -41,6 +41,10 @@ void balance_tree (struct b_node **tree);
 /*retorna a profundidade do nível da arvore. retorna 0 se a arvore esta vazia*/
 int get_level (struct b_node *tree);
 
+/*verifica se a arvore é uma arvore de busca*/
+int is_search_tree (struct b_node *tree, int (*compare) (struct b_node *, struct b_node *));
+
+
 
 /*get level*/
 #endif

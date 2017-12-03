@@ -55,7 +55,7 @@ int main (int argc, char *argv[])
  
   add_b_node (&tree, new_b_node (&m),compare);
   int i = 0;
-  for (i = 0; i < 12; i++)
+  for (i = 0; i < 5; i++)
     add_b_node (&tree, new_b_node (&n[i]), compare);
   
   node *rotas = trace_leaf_routes (tree);
@@ -67,11 +67,14 @@ int main (int argc, char *argv[])
   node *rotas_balanceadas = trace_leaf_routes (tree);
   print (rotas_balanceadas);
   
-  node *postorder =  NULL;
-  post_order_lst (tree, &postorder);
+  node *inorder =  NULL;
+  post_order_lst (tree, &inorder);
   
-  printf ("postorder----\n");
-  prt (postorder);
+  printf ("inorder----\n");
+  prt (inorder);
+  
+  printf ("verify if it is a search tree----\n");
+  printf ("%d\n", is_search_tree (tree, compare));
   
   destroy_tree (&tree);
   printf ("burro\n");

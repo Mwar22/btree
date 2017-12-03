@@ -289,3 +289,36 @@ void post_order_lst (struct b_node *tree, struct node **list)
         post_order_lst (tree->left_son, list);      /*adiciona a arvore filha esquerda*/
       }
 }
+
+int is_search_tree (struct b_node *tree, int (*compare) (struct b_node *, struct b_node *))
+{
+  int nd_obey = 1;  /*presumimos que é uma arvore de busca*/
+  
+  if (tree != NULL)
+  {
+    if (tree->left_son != NULL)
+      {
+        if ((*compare) (tree->left_son, tree) > 0)
+          nd_obey = 0;
+      }
+    
+    if (tree->right_son != NULL)
+      {
+        if ((*compare) (tree->right_son, tree) < 0)
+          nd_obey = 0;
+      }
+      
+    
+    /*if still search tree*/
+    if (nd_obey == 1)
+      {
+        /*verify for the left son*/
+        nd_obey = is_search_tree (tree->left_son, compare);
+        
+        /*if still search tree, verify the right son*/
+        if (nd_obey == 1)
+          nd_obey = is_search_tree (tree->right_son, compare);
+      }
+  }
+  return nd_obey;
+}
