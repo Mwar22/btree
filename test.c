@@ -55,7 +55,7 @@ int main (int argc, char *argv[])
  
   add_b_node (&tree, new_b_node (&m),compare);
   int i = 0;
-  for (i = 0; i < 5; i++)
+  for (i = 0; i < 12; i++)
     add_b_node (&tree, new_b_node (&n[i]), compare);
   
   node *rotas = trace_leaf_routes (tree);
@@ -68,7 +68,7 @@ int main (int argc, char *argv[])
   print (rotas_balanceadas);
   
   node *inorder =  NULL;
-  post_order_lst (tree, &inorder);
+  in_order_lst (tree, &inorder);
   
   printf ("inorder----\n");
   prt (inorder);
