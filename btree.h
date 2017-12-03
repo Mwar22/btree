@@ -28,8 +28,8 @@ int sons_of (struct b_node *father);
 struct node *trace_leaf_routes (struct b_node *btree);
 
 /*retorna uma lista com os dados da arvore em preorder e posorder*/
-void post_order_lst (struct b_node *tree, struct node **list);
-void pre_order_lst  (struct b_node *tree, struct node **list);
+void in_order_lst (struct b_node *tree, struct node **list);
+void reverse_order_lst  (struct b_node *tree, struct node **list);
 
 /*apaga a arvore*/
 void destroy_tree (struct b_node **tree);
